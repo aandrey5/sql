@@ -106,6 +106,19 @@ alter column margin_percent type varchar(20)
 USING margin_percent::varchar(20);
 
 commit;
+
+
+-- dividing counted columns
+
+select 
+	distr,
+	sum(sum_sale_no_nds) as no_nds,
+	sum(sum_sale_nds) as s_nds,
+	(sum(sum_sale_nds)-sum(sum_sale_no_nds)) as nds,
+	((sum(sum_sale_nds)-sum(sum_sale_no_nds)) / sum(sum_sale_no_nds))*100 as nds_percent 
+	
+from sales_db_copy
+group by distr;
   
   
   
