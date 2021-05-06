@@ -119,6 +119,17 @@ select
 	
 from sales_db_copy
 group by distr;
-  
+
+							
+-- PowerBI to Materialized view PostgreSQL
+							
+RE: Materialized views in PostgreSQL
+Mathieu Jehanno on 7/5/2020 11:39:38 PM
+'You can access to a materialized view in PostGre by writing a request like that :
+
+= public_Schema{[Name="XXXXX",Kind="View"]}[Data]
+
+Tip: create first a new source and then just change the table name XXXXX
+-----------------------------------------------------------------------------------
   
   
