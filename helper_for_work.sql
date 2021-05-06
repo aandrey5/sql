@@ -133,3 +133,9 @@ Tip: create first a new source and then just change the table name XXXXX
 -----------------------------------------------------------------------------------
   
   
+
+RE: Materialized views in PostgreSQL
+Koen on 7/5/2020 11:03:08 PM
+Same issue here. Easy but not so great work around: create another nrmal view with select * from the materialized view
+-----------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------							
