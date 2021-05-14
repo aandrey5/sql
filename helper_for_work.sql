@@ -163,5 +163,12 @@ SELECT
 FROM
    information_schema.columns
 WHERE
-   table_name = 'copy001' and data_type = 'double precision' ;						
+   table_name = 'copy001' and data_type = 'double precision' ;	
+							
+							
+					
+-- delete raws
+							
+delete from copy001
+where "year" = '2021' and "month" = 'Март';
 							
