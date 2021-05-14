@@ -138,4 +138,18 @@ RE: Materialized views in PostgreSQL
 Koen on 7/5/2020 11:03:08 PM
 Same issue here. Easy but not so great work around: create another nrmal view with select * from the materialized view
 -----------------------------------------------------------------------------------
------------------------------------------------------------------------------------							
+-----------------------------------------------------------------------------------;	
+					
+-----------------------------------------------------------------------------------;
+VIEW TABLE SCHEMA							
+-----------------------------------------------------------------------------------;
+							
+														
+SELECT
+   table_name,
+   column_name,
+   data_type
+FROM
+   information_schema.columns
+WHERE
+   table_name = 'copy001';
