@@ -153,3 +153,15 @@ FROM
    information_schema.columns
 WHERE
    table_name = 'copy001';
+
+							
+							
+SELECT
+   table_name,
+   column_name,
+   data_type
+FROM
+   information_schema.columns
+WHERE
+   table_name = 'copy001' and data_type = 'double precision' ;						
+							
