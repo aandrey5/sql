@@ -125,7 +125,7 @@ group by distr;
 							
 RE: Materialized views in PostgreSQL
 Mathieu Jehanno on 7/5/2020 11:39:38 PM
-'You can access to a materialized view in PostGre by writing a request like that :
+'You can access to a materialized view in PostGre by writing a request like that' :
 
 = public_Schema{[Name="XXXXX",Kind="View"]}[Data]
 
