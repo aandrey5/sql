@@ -22,3 +22,24 @@ log:
 IF YOU UNCOMMENT AND COMMENT LINE AFTER, BE SHURE TO SET --> IN END !!!
 ---------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------
+
+
+Установк конкретной версии
+
+sudo apt-get install clickhouse-server=20.8.8.2 clickhouse-client=20.8.8.2 clickhouse-common-static=20.8.8.2
+
+
+Force remove
+
+---------------------------------------------------------------------------------------------------------
+IMPORT DATA FROM PostgreSQL 
+---------------------------------------------------------------------------------------------------------
+-- worked!
+
+create table dwh.sales_db
+	(distr String,
+		year String,
+		month String,
+		sum_sale_no_nds Float64
+		)
+engine = PostgreSQL('10.128.100.98:5432', 'dwh', 'copy001', 'airflow_xcom', '1q2w3e4r5T')
