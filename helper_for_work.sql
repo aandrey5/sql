@@ -2,6 +2,17 @@ ___________________________________
 --------PostgreSQL myHELPER--------
 ___________________________________
 
+-- list current the sessions
+
+SELECT usename, client_addr, backend_start FROM pg_stat_activity WHERE datname = 'dwh';
+
+-- reset all sessions except me
+
+SELECT pg_terminate_backend( pid ) FROM pg_stat_activity WHERE pid <>
+pg_backend_pid( ) AND datname = 'dwh';
+
+
+
 -- copy table all
 
 create table sales_db_copy as
