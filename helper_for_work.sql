@@ -41,6 +41,13 @@ FROM balance_change
 ORDER BY transaction_id;
 
 
+select 
+	brand, 
+	mirta_name, 
+	sum(sum_sale_no_nds) OVER (order by mirta_name asc) AS summm 
+from sales_db_copy
+group by brand, mirta_name, sum_sale_no_nds
+
 
 
 
