@@ -50,6 +50,20 @@ group by brand, mirta_name, sum_sale_no_nds
 
 
 
+-- sum and others
+
+select 
+	brand, 
+	mirta_name, 
+	sum(sum_sale_no_nds) as sum_sku,
+	sum(sum_sale_no_nds) OVER (partition by brand order by mirta_name asc) AS summm,
+	 round(100 * (sum(sum_sale_no_nds::double precision) / sum(sum_sale_no_nds::double precision) OVER (partition by brand order by mirta_name asc))) as prsnt
+from sales_db_copy
+group by brand, mirta_name, sum_sale_no_nds
+
+
+
+
 
 -- list current the sessions
 
