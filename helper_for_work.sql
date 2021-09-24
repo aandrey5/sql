@@ -2,6 +2,48 @@ ___________________________________
 --------PostgreSQL myHELPER--------
 ___________________________________
 
+
+-- window func
+-- row_number
+select 
+	brand, 
+	mirta_name, 
+	row_number() OVER (order by mirta_name asc) AS num 
+from sales_db_copy
+group by brand, mirta_name
+
+
+-- row_number partition by
+select 
+	brand, 
+	mirta_name, 
+	row_number() OVER (partition by brand order by mirta_name asc) AS num 
+from sales_db_copy
+group by brand, mirta_name
+
+
+-- rank
+select 
+	brand, 
+	mirta_name, 
+	rank() OVER (partition by brand order by mirta_name asc) AS num 
+from sales_db_copy
+group by brand, mirta_name
+
+
+
+-- sum
+SELECT
+    transaction_id,
+    change,
+    sum(change) OVER (ORDER BY transaction_id) as balance
+FROM balance_change 
+ORDER BY transaction_id;
+
+
+
+
+
 -- list current the sessions
 
 SELECT usename, client_addr, backend_start FROM pg_stat_activity WHERE datname = 'dwh';
