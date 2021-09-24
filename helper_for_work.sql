@@ -63,6 +63,21 @@ group by brand, mirta_name, sum_sale_no_nds
 
 
 
+-- foreign keys
+CREATE TABLE Customers
+(
+    Id SERIAL PRIMARY KEY,
+    Age INTEGER, 
+    FirstName VARCHAR(20) NOT NULL
+);
+  
+CREATE TABLE Orders
+(
+    Id SERIAL PRIMARY KEY,
+    CustomerId INTEGER,
+    Quantity INTEGER,
+    FOREIGN KEY (CustomerId) REFERENCES Customers (Id)
+);
 
 
 -- list current the sessions
