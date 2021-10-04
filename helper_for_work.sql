@@ -3,6 +3,20 @@ ___________________________________
 ___________________________________
 
 
+
+-- optimisation
+-- create extension before this
+
+SELECT *
+FROM
+  pg_stat_statements
+ORDER BY
+  total_exec_time DESC;
+
+
+
+
+
 -- window func
 -- row_number
 select 
