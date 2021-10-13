@@ -5,6 +5,12 @@ ______________________________________
 ---------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------
 
+-- create user read-only
+
+CREATE USER username IDENTIFIED WITH plaintext_password BY 'qwerty' SETTINGS PROFILE 'readonly'
+GRANT SHOW TABLES, SELECT ON database.* TO username
+
+
 -- Create table as select all from another table
 
 create table dwh.rnc_dump14092021 
