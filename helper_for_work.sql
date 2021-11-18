@@ -2,8 +2,23 @@ ___________________________________
 --------PostgreSQL myHELPER--------
 ___________________________________
 
+---SQL Server ---- 
+Sort by ordinal positions of columns
 
+SQL Server allows you to sort the result set based on the ordinal positions of columns that appear in the select list.
 
+The following statement sorts the customers by first name and last name. But instead of specifying the column names explicitly, it uses the ordinal positions of the columns:
+
+SELECT
+    first_name,
+    last_name
+FROM
+    sales.customers
+ORDER BY
+    1,
+    2;
+
+------------------------------------------------------------
 -- optimisation
 -- create extension before this
 
