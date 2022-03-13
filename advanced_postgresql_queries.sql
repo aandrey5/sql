@@ -236,8 +236,36 @@ from sales.order_lines inner join inventory.products
 
 	
 	
--- mooving average 
+-- mooving average with sloding window 
 
+select 
+	order_id,
+	sum(order_id) over(order by order_id rows between 0 preceding and 2 following)
+		as "3 period leading sum",
+	sum(order_id) over(order by order_id rows between 2 preceding and 0 following)
+		as "3 period trailing sum",
+	avg(order_id) over(order by order_id rows between 1 preceding and 1 following)
+		as "3 period moving average"
+from sales.orders;
+
+
+-- return values at specific locations within a window 
+
+select 
+	company ,
+	first_value(company) over(order by company),
+	last_value(company) over(order by company),
+	nth_value(company, 3) over(order by company)
+from sales.customers 
+order by company;
+
+
+Blue Vine	Blue Vine	Blue Vine	
+Bread Express	Blue Vine	Bread Express	
+Delish Food	Blue Vine	Delish Food	Delish Food
+Flavorville	Blue Vine	Flavorville	Delish Food
+Green Gardens	Blue Vine	Green Gardens	Delish Food
+Wild Rose	Blue Vine	Wild Rose	Delish Food
 
 
 
