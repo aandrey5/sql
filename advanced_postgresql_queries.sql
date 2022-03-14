@@ -260,12 +260,72 @@ from sales.customers
 order by company;
 
 
-Blue Vine	Blue Vine	Blue Vine	
-Bread Express	Blue Vine	Bread Express	
-Delish Food	Blue Vine	Delish Food	Delish Food
-Flavorville	Blue Vine	Flavorville	Delish Food
-Green Gardens	Blue Vine	Green Gardens	Delish Food
-Wild Rose	Blue Vine	Wild Rose	Delish Food
+select 
+	company ,
+	first_value(company) over(order by company
+		rows between unbounded preceding and unbounded following),
+	last_value(company) over(order by company
+		rows between unbounded preceding and unbounded following),
+	nth_value(company, 3) over(order by company
+		rows between unbounded preceding and unbounded following)
+from sales.customers 
+order by company;
+
+select * from sales.orders;
+
+-- first and lact date of order
+select distinct  customer_id,
+	first_value(order_date)
+		over(partition by  customer_id
+		order by order_date
+		rows between unbounded preceding and unbounded following),
+	last_value(order_date)
+		over(partition by  customer_id
+		order by order_date
+		rows between unbounded preceding and unbounded following)
+from sales.orders
+order by customer_id ;
+
+
+-- CHALLENGE 2
+
+select * from inventory.products p ;
+
+select 
+	product_name,
+	category_id ,
+	size,
+	price as "each price",
+	min(price) over(calc) as "min price",
+	max(price) over(calc) as "max price",
+	avg(price) over(calc) as "avg price",
+	count(*) over(partition by category_id) as "total counts of cat products",
+	count(*) over(partition by size) as "total counts of size products"
+from inventory.products
+window calc as (partition by product_name);
+	
+
+select 
+	product_name,
+	category_id ,
+	size,
+	price as "each price",
+	min(price) over(calc) as "min price",
+	max(price) over(calc) as "max price",
+	avg(price) over(calc) as "avg price",
+	count(*) over(calc) as "total counts of cat products"
+from inventory.products
+window calc as (partition by category_id, size)
+order by category_id, product_name, size;
+;
+
+	
+	
+--==========================================================================
+--==========================================================================
+-- STATISTIC FUNC
+--==========================================================================
+--==========================================================================
 
 
 
