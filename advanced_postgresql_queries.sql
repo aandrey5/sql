@@ -328,7 +328,77 @@ order by category_id, product_name, size;
 --==========================================================================
 
 
+select * from inventory.products;
+
+select * from inventory.categories c ;
+
+with tbbl as (select 
+	p.product_name,
+	p.sku,
+	p.price
+from inventory.products p 
+inner join  inventory.categories c
+	on c.category_id  = p.category_id)
+select * from tbbl 
+where tbbl.product_name = 'Delicate';
+
+select product_name ro from inventory.products;
+
+create table dbbl as select product_name  from inventory.products;
+
+drop table dbbl;
 
 
+select * from dbbl;
+
+delete from dbbl;
+
+
+insert into dbbl (product_name)
+values 
+('Light'),
+('Light'),
+('Manzanilla'),
+('Manzanilla'),
+('Mission'),
+('Moraiolo'),
+('Oblica'),
+('Pendolino'),
+('Pendolino'),
+('Picual'),
+('Pure'),
+('Pure'),
+('Refined'),
+('Virgin'),
+('Mandarin-Infused'),
+('Lemon-Infused')
+;
+
+
+select 
+	product_name
+from dbbl
+group by product_name
+having count(*) > 1
+;
+
+
+select height_inches 
+from public.people_heights
+order by height_inches ;
+
+
+-- MEDIAN VALUE
+
+select 
+	gender,
+	percentile_disc(0.5) within group (order by height_inches) as "discrete median",
+	percentile_cont(0.5) within  group (order by height_inches) as "continious median"
+from public.people_heights
+group by rollup (gender) 
+;
+
+
+-- FIRST AND THIRD QUANTILES
 
 
