@@ -401,4 +401,45 @@ group by rollup (gender)
 
 -- FIRST AND THIRD QUANTILES
 
+select height_inches 
+from public.people_heights
+order by height_inches ;
+
+
+-- first quartile
+select 
+	percentile_cont(.25) within group (order by height_inches) as "1st qartile",
+	percentile_cont(.50) within group (order by height_inches) as "2st qartile",
+	percentile_cont(.75) within group (order by height_inches) as "3st qartile"
+from public.people_heights;
+
+
+-- devide data to 4 groups (not real 4 quartiles)
+
+select 
+	name,
+	height_inches ,
+	ntile(4) over(order by height_inches)
+from public.people_heights
+order by height_inches ;
+
+-- MOST FREQUENT VALUE with MODE
+
+select 
+	mode() within group (order by height_inches)
+from public.people_heights;
+
+-- the MODE FUNC has a BIG PROBLEM (SEE BELOW)
+select height_inches , count(*) 
+from public.people_heights
+group by height_inches 
+order by count(*) desc;
+
+
+-- Determine the range of values within a dataset
+select 
+	gender,
+	max(height_inches) - min(height_inches) as  "height range"
+from public.people_heights
+group by rollup (gender);
 
