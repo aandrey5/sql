@@ -312,5 +312,14 @@ SELECT nspname || '.' || relname AS "relation",
   FROM pg_class C
   LEFT JOIN pg_namespace N ON (N.oid = C.relnamespace)
   WHERE nspname NOT IN ('pg_catalog', 'information_schema')
-  ORDER BY pg_relation_size(C.oid) DESC;							
+  ORDER BY pg_relation_size(C.oid) DESC;		
+  
+  
+  
+  
+  
+-- create copy of table -- LIKE ---
+  
+CREATE TABLE flights_copy(LIKE flights)
+WITH (autovacuum_enabled = false);
 							
