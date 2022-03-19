@@ -322,4 +322,26 @@ SELECT nspname || '.' || relname AS "relation",
   
 CREATE TABLE flights_copy(LIKE flights)
 WITH (autovacuum_enabled = false);
+
+
+-- INSERT - SELECT ----
+
+INSERT INTO flights_copy SELECT * FROM flights;
+
+
+-- SEE STATISTICS --
+
+ SELECT reltuples, relpages, relallvisible
+FROM pg_class WHERE relname = 'flights_copy';
+
+
+
+-- COLLECT STATISTICS ))) ----------
+ANALYZE flights_copy;
+
+
+
+-- UPDATE relallvisible --
+VACUUM flights_copy;
+
 							
