@@ -437,9 +437,36 @@ order by count(*) desc;
 
 
 -- Determine the range of values within a dataset
+
 select 
 	gender,
 	max(height_inches) - min(height_inches) as  "height range"
 from public.people_heights
 group by rollup (gender);
+
+
+-- CHALENGE
+
+select * from inventory.products p ;
+
+select 
+	product_name ,
+	size,
+	price,
+	-- min(price) as "minimum total",
+	-- max(price) as "maximum total",
+	min(price) over(part_prod) as "min in partition",
+	max(price) over(part_prod) as "max in partition",
+	max(price) over(part_prod)  - min(price) over(part_prod) as "price range",
+	percentile_cont(.25) within group (order by price) "1st qartile",
+	percentile_cont(.50) within group (order by price) "2st qartile",
+	percentile_cont(.75) within group (order by price) "3st qartile"
+	-- max(price) - min(price) over(part_prod) as  "price range"
+from inventory.products
+group by (product_name, size, price)
+window part_prod as (partition by size)
+order by "size"
+;
+
+
 
