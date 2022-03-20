@@ -469,4 +469,37 @@ order by "size"
 ;
 
 
+-- NOT WORKED
+select 
+	category_id ,
+	-- min(price) as "minimum total",
+	-- max(price) as "maximum total",
+	min(price) over(part_prod) as "min in partition",
+	max(price) over(part_prod) as "max in partition",
+	max(price) over(part_prod)  - min(price) over(part_prod) as "price range",
+	percentile_cont(.25) within group (order by price) "1st qartile",
+	percentile_cont(.50) within group (order by price) "2st qartile",
+	percentile_cont(.75) within group (order by price) "3st qartile"
+	-- max(price) - min(price) over(part_prod) as  "price range"
+from inventory.products
+group by rollup (category_id)
+window part_prod as (partition by category_id)
+;
+
+-- DESICION
+-- Obtain sttistical info
+
+select 
+	category_id ,
+	min(price) as "min price",
+	percentile_cont(.25) within group (order by price) "1st qartile",
+		percentile_cont(.50) within group (order by price) "2st qartile",
+	percentile_cont(.75) within group (order by price) "3st qartile",
+	max(price) as "max price",
+	max(price) - min(price) as "price range"
+from inventory.products
+group by rollup (category_id);
+
+
+
 
