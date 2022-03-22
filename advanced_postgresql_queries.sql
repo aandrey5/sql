@@ -618,3 +618,54 @@ select
 	dense_rank() over(partition by size order by price desc) as "rank size"
 from inventory.products
 order by category_id, price desc;
+
+
+
+--==========================================================================
+--==========================================================================
+-- DEFINE VALUES WITH CASE STATEMENTS
+--==========================================================================
+--==========================================================================
+
+select 
+	 case 
+	 	when 0 = 0 
+	 	then 'A'
+	 	when 1 = 1
+	 	then 'B'
+	 	else 'C'
+	 end;
+	 	
+select * from inventory.products;
+
+
+select 
+	sku,
+	product_name ,
+	category_id ,
+	case 
+		when category_id = 1 then 'Olive Oils'
+		when category_id = 2 then 'Flavour Infused Oils'
+		when category_id = 3 then 'Bath and Beauty'
+		else 'category unknown'
+	end as "category description", 
+	size, price
+from inventory.products;
+
+
+-- MERGE COLUMNS - COALESCE (IF ANOTHER IS NULL)
+
+select coalesce (null, null, 'C');
+
+select * from inventory.categories;	
+
+insert into inventory.categories values 
+(4, null, 'Gift Baskets');
+
+
+select 
+	category_id ,
+	coalesce (category_description, product_line) as "description",
+	product_line 
+from inventory.categories;
+
