@@ -669,3 +669,19 @@ select
 	product_line 
 from inventory.categories;
 
+
+
+-- CONVERT VALUES TO NULL with NULLIF (FOR DATA SCIENTIST  - NULL ON TEMPERATURE 999999 to NULL)
+
+select nullif('A', 'B'); -- returns A
+
+select nullif('A', 'A'); -- returns NULL
+
+
+select * from inventory.products;	
+
+select sku, product_name , category_id, 
+	nullif(size, 32) as "size",
+	price
+from inventory.products;
+
