@@ -530,5 +530,79 @@ select
 	rank() over(partition by gender order by height_inches desc),
 	dense_rank() over(partition by gender order by height_inches desc)
 from public.people_heights
-order by gender, height_inches  desc;
+order by gender, height_inches desc;
+
+
+
+-- FIND  A HYPOTETICAL RANK
+
+select 
+	name,
+	height_inches
+from public.people_heights
+order by height_inches  desc;
+
+
+-- DECIDE WHICH POSITION  WILL BE FOR AN OUR VALUE IN RANK()
+
+select 
+	rank(75) within group (order by height_inches desc)
+from public.people_heights;
+
+-- DECIDE WHICH POSITION  WILL BE FOR DIFFERENT GROUPS IN GROUP BY CLASS
+
+select 
+	gender,
+	rank(70) within group (order by height_inches desc)
+from public.people_heights
+group by rollup(gender);
+
+
+
+
+-- TOP PERFORMERS WITH PERCENTILE RANKS
+
+select 
+	name,
+	gender,
+	height_inches,
+	percent_rank() over(order by height_inches desc),
+	case 
+		when percent_rank() over(order by height_inches desc) < .25 then '1st'
+		when percent_rank() over(order by height_inches desc) < .50 then '2st'
+		when percent_rank() over(order by height_inches desc) < .75 then '3st'
+		else '4th'
+	end as "quartile rank"
+from public.people_heights
+order by height_inches desc;
+
+
+-- evaluate propability with cumulative distribution
+
+select 
+	name,
+	gender,
+	height_inches,
+	percent_rank() over(order by height_inches desc),
+	cume_dist() over( order by height_inches desc)
+from public.people_heights
+order by height_inches desc;
+
+
+-- CHALLENGE 
+
+-- display ranking overall, segmented by category and by size
+
+select * from inventory.products;
+
+select 
+	product_name,
+	category_id ,
+	size ,
+	price,
+	rank() over(partition by category_id, size order by price asc),
+	dense_rank() over(partition by category_id, size order by price asc)
+from inventory.products
+order by category_id, size;
+
 
