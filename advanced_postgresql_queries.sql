@@ -685,3 +685,66 @@ select sku, product_name , category_id,
 	price
 from inventory.products;
 
+
+
+
+
+
+--==========================================================================
+--==========================================================================
+-- ADDITIONAL QERIYNG TECHNIQUES FOR COMMON PROBLEMS
+--==========================================================================
+--==========================================================================
+
+
+-- output row numbers
+
+select * from inventory.products;
+
+select 
+	sku,
+	product_name ,
+	size,
+	row_number() over(order by sku)
+from inventory.products;
+
+
+select 
+	sku,
+	product_name ,
+	size,
+	row_number() over(partition by product_name order by sku)
+from inventory.products;
+
+
+-- CAST values in a different data types
+
+select order_id ,
+	order_date ,
+	customer_id 
+from sales.orders ;
+
+
+
+select order_id ,
+	order_date::text,
+	customer_id 
+from sales.orders ;
+
+
+-- MOVE ROWS within a result LEAD / LAG
+-- LAG - shift DOWN
+-- LEAD - shifts UP
+
+select 
+	order_id ,
+	customer_id ,
+	order_date ,
+	lag(order_date, 1) over(partition by customer_id order by order_id) 
+		as "previous order date",
+	lead(order_date, 1) over(partition by customer_id order by order_id) 
+		as "next order",
+	lead(order_date, 1) over(partition by customer_id order by order_id) - 
+		order_date as "time between orders"
+from sales.orders
+order by customer_id , order_date;
