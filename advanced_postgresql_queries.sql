@@ -831,3 +831,29 @@ select
 	height_inches - lead(height_inches, 1) over(order by height_inches desc) as "much taller"
 from public.people_heights
 order by height_inches  desc;
+
+
+select 
+	person_id,
+	name,
+	gender,
+	height_inches,
+	lead(height_inches, 1) over(partition by  gender order by height_inches desc) as "next person",
+	height_inches - lead(height_inches, 1) over(partition by  gender order by height_inches desc) as "much taller"
+from public.people_heights
+order by gender, height_inches  desc;
+
+
+
+-- WITH COLUMN NAME
+
+select 
+	person_id,
+	name,
+	height_inches,
+	lead(name, 1) over(order by height_inches desc) as "next name",
+	lead(height_inches, 1) over(order by height_inches desc) as "next height",
+	height_inches - lead(height_inches, 1) over(order by height_inches desc) as "much taller"
+from public.people_heights
+order by height_inches  desc;
+
