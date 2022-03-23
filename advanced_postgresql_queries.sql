@@ -692,7 +692,7 @@ from inventory.products;
 
 --==========================================================================
 --==========================================================================
--- ADDITIONAL QERIYNG TECHNIQUES FOR COMMON PROBLEMS
+-- ADDITIONAL QUERIYNG TECHNIQUES FOR COMMON PROBLEMS
 --==========================================================================
 --==========================================================================
 
@@ -748,3 +748,86 @@ select
 		order_date as "time between orders"
 from sales.orders
 order by customer_id , order_date;
+
+
+
+-- USE FUNCTION IN IN SUBQUERY
+
+select * 
+from inventory.products 
+where product_name = 'Delicate'
+	or product_name = 'Bold'
+	or product_name = 'Light';
+
+
+
+select * 
+from inventory.products 
+where product_name in ('Delicate', 'Bold', 'Light');
+
+
+select product_name, count(*)
+from inventory.products 
+group by product_name
+having count(*) >= 5;
+
+select product_name
+from inventory.products 
+group by product_name
+having count(*) >= 5;
+
+
+
+
+select * 
+from inventory.products 
+where product_name in (
+	select product_name
+	from inventory.products 
+	group by product_name
+	having count(*) >= 5);
+	
+
+
+
+-- define WHERE with a SERIES
+
+select generate_series(100, 120) ;
+
+select generate_series(100, 120, 5) ;
+
+select * from generate_series(100, 120, 5) ;
+
+
+
+-- GENERATE WITH VALUES
+
+select *
+from sales.orders 
+where order_id in(
+	select generate_series(3, 10000, 10))
+order by order_id;
+
+
+
+-- GENERATE WITH DATES
+
+select *
+from sales.orders 
+where order_date in(
+	select generate_series('2021-03-15'::timestamp, '2021-03-31'::timestamp, '5 days'))
+order by order_id;
+
+
+
+
+-- CHALLENGE 
+
+select 
+	person_id,
+	name,
+	height_inches,
+	lead(height_inches, 1) over(order by height_inches desc) as "next person",
+	height_inches - lead(height_inches, 1) over(order by height_inches desc) as "much taller"
+from public.people_heights
+order by height_inches  desc;
