@@ -344,4 +344,29 @@ ANALYZE flights_copy;
 -- UPDATE relallvisible --
 VACUUM flights_copy;
 
+
+-- KILL SESSIONS postgreSQL
+
+root@aandrey5:~# sudo kill -9 525073
+root@aandrey5:~# ps -ef | grep postgres
+postgres  524700       1  0 12:26 ?        00:00:00 /usr/lib/postgresql/14/bin/postgres -D /var/lib/postgresql/14/main -c config_file=/etc/postgresql/14/main/postgresql.conf
+postgres  525082  524700  0 12:57 ?        00:00:00 postgres: 14/main: checkpointer
+postgres  525083  524700  0 12:57 ?        00:00:00 postgres: 14/main: background writer
+postgres  525084  524700  0 12:57 ?        00:00:00 postgres: 14/main: walwriter
+postgres  525085  524700  0 12:57 ?        00:00:00 postgres: 14/main: autovacuum launcher
+postgres  525086  524700  0 12:57 ?        00:00:00 postgres: 14/main: stats collector
+postgres  525087  524700  0 12:57 ?        00:00:00 postgres: 14/main: logical replication launcher
+postgres  525088  524700  4 12:57 ?        00:00:00 postgres: 14/main: postgres two_trees 109.230.162.208(56965) SELECT
+root      525090  524126  0 12:57 pts/0    00:00:00 grep --color=auto postgres
+root@aandrey5:~# ps -ef | grep postgres
+postgres  524700       1  0 12:26 ?        00:00:00 /usr/lib/postgresql/14/bin/postgres -D /var/lib/postgresql/14/main -c config_file=/etc/postgresql/14/main/postgresql.conf
+postgres  525082  524700  0 12:57 ?        00:00:00 postgres: 14/main: checkpointer
+postgres  525083  524700  0 12:57 ?        00:00:00 postgres: 14/main: background writer
+postgres  525084  524700  0 12:57 ?        00:00:00 postgres: 14/main: walwriter
+postgres  525085  524700  0 12:57 ?        00:00:00 postgres: 14/main: autovacuum launcher
+postgres  525086  524700  0 12:57 ?        00:00:00 postgres: 14/main: stats collector
+postgres  525087  524700  0 12:57 ?        00:00:00 postgres: 14/main: logical replication launcher
+root      525096  524126  0 12:57 pts/0    00:00:00 grep --color=auto postgres
+root@aandrey5:~# sudo -u postgres psql
+
 							
