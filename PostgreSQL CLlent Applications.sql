@@ -60,5 +60,9 @@ You are now connected to database "two_trees" as user "postgres".
 two_trees=#
 
 
+-- IMPORT FILE
+
+psql -h 80.87.200.251 -p 5432 -d two_trees -U postgres --file "C:\Users\am********\Downloads\PostgreSQL_Client_Applications\PostgreSQL_Client_Applications\Chapter 2\Two_Trees_Database.txt"
+
 
 
