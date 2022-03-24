@@ -49,6 +49,16 @@ where option can be:
 
 URL: https://www.postgresql.org/docs/14/sql-createrole.html
 
+-- SWITCH Between users
+
+two_trees=# \c two_trees micah
+SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
+You are now connected to database "two_trees" as user "micah".
+two_trees=> \c - postgres
+SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
+You are now connected to database "two_trees" as user "postgres".
+two_trees=#
+
 
 
 
