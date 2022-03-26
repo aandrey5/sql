@@ -66,3 +66,21 @@ psql -h 80.87.200.251 -p 5432 -d two_trees -U postgres --file "C:\Users\am******
 
 
 
+
+-- ADDITIONAL INFORMATION ABOUT DATABASES
+
+two_trees=# \l+
+                                                                 List of databases
+     Name      |  Owner   | Encoding | Collate | Ctype |   Access privileges   |  Size   | Tablespace |                Description
+---------------+----------+----------+---------+-------+-----------------------+---------+------------+--------------------------------------------
+ demo          | postgres | LATIN1   | en_US   | en_US |                       | 2686 MB | pg_default |
+ ods           | postgres | LATIN1   | en_US   | en_US |                       | 8401 kB | pg_default |
+ old_two_trees | postgres | LATIN1   | en_US   | en_US |                       | 8945 kB | pg_default |
+ postgres      | postgres | LATIN1   | en_US   | en_US |                       | 8569 kB | pg_default | default administrative connection database
+ template0     | postgres | LATIN1   | en_US   | en_US | =c/postgres          +| 8401 kB | pg_default | unmodifiable empty database
+               |          |          |         |       | postgres=CTc/postgres |         |            |
+ template1     | postgres | LATIN1   | en_US   | en_US | =c/postgres          +| 8553 kB | pg_default | default template for new databases
+               |          |          |         |       | postgres=CTc/postgres |         |            |
+ two_trees     | postgres | LATIN1   | en_US   | en_US |                       | 8825 kB | pg_default |
+(7 rows)
+
