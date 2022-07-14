@@ -2,6 +2,35 @@ ___________________________________
 --------PostgreSQL myHELPER--------
 ___________________________________
 
+-- LIST OF ALL TABLES
+-- Список всех таблиц во всех схемах
+
+
+select
+	table_name
+from
+	information_schema.tables
+where
+	table_schema not in ('information_schema', 'pg_catalog');
+
+
+-- LIST OF ALL TABLES OF SCHEMA 'nnn'
+-- Список всех таблиц во всех схемах
+
+
+
+select
+	table_name
+from
+	information_schema.tables
+where
+	table_schema = 'nnn';
+
+
+-- LIST OF ALL TABLES
+
+
+
 ---SQL Server ---- 
 Sort by ordinal positions of columns
 
