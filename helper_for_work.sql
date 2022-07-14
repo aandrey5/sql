@@ -2,6 +2,37 @@ ___________________________________
 --------PostgreSQL myHELPER--------
 ___________________________________
 
+
+
+-- посмотреть дубли (поздние)
+select * from (select *, 
+	ROW_NUMBER() over (partition by xxxxxxxxxxxx, xxxxxxxxxxxx  order by xxxxxxxxxxxx, xxxxxxxxxxxx) as rannkk
+from xxx.xxxxxxxxxxxx) as duppl
+where rannkk = 2
+;
+
+
+delete from xxx.xxxxxxxxxxxx 
+using 
+(select *, 
+	ROW_NUMBER() over (partition by xxxxxxxxxxxx, xxxxxxxxxxxx  order by xxxxxxxxxxxx, xxxxxxxxxxxx) as rannkk
+from xxx.xxxxxxxxxxxx) as duppl
+where rannkk = 2) fff;
+
+
+-- Удаление дубликатов быстро
+
+DELETE FROM xxx.xxxxxxxxxxxx a USING (
+      SELECT MIN(ctid) as ctid, nnnnnnn
+        FROM xxx.xxxxxxxxxxxx 
+        GROUP BY nnnnnnn HAVING COUNT(*) > 1
+      ) b
+      WHERE a.nnnnnnn = b.nnnnnnn
+      AND a.ctid <> b.ctid;
+
+
+
+
 -- LIST OF ALL TABLES
 -- Список всех таблиц во всех схемах
 
