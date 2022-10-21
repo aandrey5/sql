@@ -857,3 +857,26 @@ select
 from public.people_heights
 order by height_inches  desc;
 
+
+--==========================================================================
+--==========================================================================
+-- SUMIF
+--==========================================================================
+--==========================================================================
+
+select
+	date_trunc('month', "bdm"."sales_report"."invoce_date") as "invoce_date",
+	sum("bdm"."sales_report"."ns_eur_novat") 
+	FILTER (WHERE "period" = 'BDG 2022')
+        AS "BDG_2022_ns_eur_novat",
+	sum("bdm"."sales_report"."ns_eur_novat") 
+	FILTER (WHERE "period"  = 'ACT')
+        AS "ACT_ns_eur_novat"
+from
+	"bdm"."sales_report"
+where
+	"bdm"."sales_report"."year" = '2022'
+group by
+	date_trunc('month', "bdm"."sales_report"."invoce_date")
+order by
+	date_trunc('month', "bdm"."sales_report"."invoce_date") asc
