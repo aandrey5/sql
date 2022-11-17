@@ -1,3 +1,34 @@
+--===================================================
+-- CREATE PARTITION FOR ETL PURPOSES -- MOD --
+--===================================================
+
+select count(*) from bookings.seats
+
+select * from bookings.seats
+
+
+create view bookings.test_view as (
+with fff as (
+select
+	*,
+	row_number() over() as nunmmm
+	from bookings.seats)
+	
+select 
+	*,
+	mod(nunmmm, 100) as parrt_num
+from 	fff)
+	
+	
+select * from bookings.test_view
+where parrt_num - 99 = 0
+
+
+--====================================================
+
+
+
+
 select product_name , category_id , size , price 
 from inventory.products 
 where price > 20.00;
