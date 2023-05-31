@@ -2,6 +2,34 @@ ___________________________________
 --------PostgreSQL myHELPER--------
 ___________________________________
 
+-- not digit
+create table int_test (
+int_str text);
+
+
+-- not digit
+
+insert into int_test(int_str) values 
+('fgh5ffg'),
+('54564'),
+('4sdfs4sdf'),
+(',&#%^%(#'),
+('*#HJf534'),
+('sssss'),
+(']][][][][');
+
+
+-- not digit in attr
+
+select int_str,
+	case 
+		when  int_str !~ '^([0-9]+[.]?[0-9]*|[.][0-9]+)$'
+		then 'have nondigit'
+		else 'only digits'
+	end as check
+from int_test
+
+
 
 
 -- посмотреть дубли (поздние)
