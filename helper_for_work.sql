@@ -2,6 +2,20 @@ ___________________________________
 --------PostgreSQL myHELPER--------
 ___________________________________
 
+select 
+*
+, int_str
+, regexp_replace(int_str, '[^[:alpha:]\s]', '', 'g') as repl
+, regexp_replace(int_str, '[^[:digit:]]', '', 'g') only_num
+, regexp_replace(int_str, '[^[:alpha:]]', '', 'g') only_char
+, length(regexp_replace(int_str, '[^[:alpha:]]', '', 'g')) as len_char
+, case
+	when regexp_replace(int_str, '[^[:alpha:]\s]', '', 'g') = '' then 'only digits'
+	else 'have digits'
+	end  as w_o_digits
+from int_test
+
+
 -- not digit
 create table int_test (
 int_str text);
