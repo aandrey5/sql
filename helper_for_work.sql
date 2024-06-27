@@ -471,4 +471,14 @@ postgres  525087  524700  0 12:57 ?        00:00:00 postgres: 14/main: logical r
 root      525096  524126  0 12:57 pts/0    00:00:00 grep --color=auto postgres
 root@aandrey5:~# sudo -u postgres psql
 
-							
+
+-------------------------------------------------------------------------
+--select with data in select
+	
+SELECT *
+FROM (VALUES
+    (1, 'Alice', 1000),
+    (2, 'Bob', 1500),
+    (3, 'Charlie', 2000)
+) AS temp_table(id, name, salary);
+
