@@ -482,3 +482,16 @@ FROM (VALUES
     (3, 'Charlie', 2000)
 ) AS temp_table(id, name, salary);
 
+
+SELECT e.*
+FROM employees e
+JOIN (VALUES
+    (1, 'Alice', 1000),
+    (2, 'Bob', 1500),
+    (3, 'Charlie', 2000)
+) AS temp_table(id, name, salary) ON e.id = temp_table.id;
+
+
+
+
+
